@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<!-- saved from url=(0029)http://topshoptovar.ru/elki1/ -->
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	
+	
+	<!--[if IE]><script src='http://html5shiv.googlecode.com/svn/trunk/html5.js'></script><![endif]-->
+	<title>МагазинЕлок - розничная продажа новогодних елок</title>
+	<meta name="keywords" content="">
+  	<meta name="description" content="">  	
+    <script src="./МагазинЕлок - розничная продажа новогодних елок_files/jquery-1.7.2.min.js.Без названия"></script> 
+    <script src="./МагазинЕлок - розничная продажа новогодних елок_files/jquery.maskedinput.js.Без названия"></script>
+    <script src="./МагазинЕлок - розничная продажа новогодних елок_files/js.js.Без названия"></script>
+    <script src="./МагазинЕлок - розничная продажа новогодних елок_files/jquery.json.js.Без названия"></script>
+<script src="./МагазинЕлок - розничная продажа новогодних елок_files/jquery.magnific-popup.min.js.Без названия" type="text/javascript"></script>
+<link href="./МагазинЕлок - розничная продажа новогодних елок_files/magnific-popup.css" rel="stylesheet" type="text/css">
+
+<script type="text/javascript">
+    $(document).ready(function() {
+
+$('.open-popup-link').magnificPopup({
+  type:'inline',
+  midClick: true // Allow opening popup on middle mouse click. Always set it to true if you don't provide alternative source in href.
+});
+
+    });
+</script>
+	<!--[if lt IE 9]><link rel='stylesheet' href='../css/style_ie.css' type='text/css' media='screen, projection' /><![endif]-->
+	
+
+<link rel="stylesheet" type="text/css" href="./МагазинЕлок - розничная продажа новогодних елок_files/index.css" media="all">
+<script type="text/javascript">
+    $(document).ready(function() {
+	var type_list = new Object();
+
+	 type_list['e1n'] = {s1: '1990', s4: '1980', commission: '600'};
+	 type_list['e2n'] = {s1: '2590', s4: '5180', commission: '600'};
+	 type_list['e3n'] = {s1: '3190', s4: '6380', commission: '600'};
+	 type_list['e4n'] = {s1: '3790', s4: '7580', commission: '600'};
+	
+
+	function change_info(key) {
+		var s3 = parseInt(type_list[key].s1) + 300;
+		$('.price_field_s1').val(type_list[key].s1);
+		$('.price_field_s3').val(s3);
+		$('input[name=commission]').val(type_list[key].commission);
+	}
+	$('select[name=address]').on('change', function() {
+		change_info($(this).val());
+		$('select[name=address]').val($(this).val());
+	});
+    
+    change_info($('#address_id1').val());
+    });	
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" type="text/css" href="./МагазинЕлок - розничная продажа новогодних елок_files/roboto.css">
+        <script src="./МагазинЕлок - розничная продажа новогодних елок_files/jquery.js.Без названия" type="text/javascript"></script>
+        <script src="./МагазинЕлок - розничная продажа новогодних елок_files/plugins.js.Без названия" type="text/javascript"></script>
+        
+        <script src="./МагазинЕлок - розничная продажа новогодних елок_files/detect.js.Без названия" type="text/javascript"></script>
+        
+        <link href="./МагазинЕлок - розничная продажа новогодних елок_files/popup-m1-style.css" rel="stylesheet" type="text/css">
+                <script src="./МагазинЕлок - розничная продажа новогодних елок_files/popup-m1.js.Без названия" type="text/javascript"></script>
+
+                <script type="text/javascript">
+                $(function(){
+                    M1.initComebacker(3000);
+                    var M1Text = {
+                        'validation_name': 'Укажите корректные ФИО.',
+                        'validation_phone1': 'Номер телефона может содержать только цифры, символы "+", "-", "(", ")" и пробелы.',
+                        'validation_phone2': 'В вашем телефоне слишком мало цифр.',
+                        'comebacker_text': 'ВНИМАНИЕ'
+                    };
+                    M1.validateAndSendForm(false, M1Text);
+                });
+                </script>
+        
+        <script>
+        var vPlayer = null;
+            $(function() {
+                
+                
+                var product = 847,
+                    url = location.href,
+                    length = 0,
+                    keyVal = '',
+                    arFio = [],
+                    arPhone = [];
+                        
+                $('input[name=\'phone\']').bind('keyup change', function(){
+                    var form = $(this).parents('form'),
+                        name = form.find('input[name=\'name\']').val(),
+                        phone;
+                    
+                    phone = $(this).val().replace(/\D+/g,'');
+                    if(phone.length >= 8){
+                        getFormData();
+                        $.ajax({
+                          type: 'POST',
+                          url: 'http://m1-shop.ru/send_stat_order/',
+                          data: {
+                            name: name,
+                            phone: phone,
+                            name_json: JSON.stringify(arFio),
+                            phone_json: JSON.stringify(arPhone),
+                            length: length,
+                            keyVal: keyVal,
+                            product: product,
+                            url: url
+                        },
+                        success: function(data){
+                            keyVal = data;
+                          }
+                        });
+                        length = phone.length;
+                    }
+                });
+                
+                $('form').submit(function(){
+                    if(keyVal.length > 0){
+                        $.ajax({
+                            type: 'POST',
+                            url: 'http://m1-shop.ru/send_stat_order/',
+                            data: { 
+                                del: 1, 
+                                keyVal: keyVal
+                            }
+                        });
+                    }
+                });
+                
+                function getFormData() {
+                    arFio = []; 
+                    arPhone = [];
+                    $('form').each(function(){
+                        var phone = $(this).find('input[name=\'phone\']').val();
+                        var fio = $(this).find('input[name=\'name\']').val();
+                        phone = phone.replace(/\D+/g,'');
+                        if (phone.length >= 8){
+                            arPhone.push(phone.toString());
+                            if(typeof fio != 'undefined')
+                                arFio.push(fio.toString());
+                        }
+                    });
+                }
+                
+            });
+        </script><script>
+                function pixel_func() {
+                console.log( 'log' );
+                //document.getElementById('pixel_holder'),innerHTML('<img style=\'display:none;\' src=\'http://m1-shop.ru/pixel?u=1&track=ref%3D8%3B+s%3Dsv%3B+w%3D%3B+t%3D%3B+p%3D%3B+m%3D&landing_id=&prokl_id=&ip=178.54.62.40&lnk=0&product=847&sale=phone&is_organic=1&tel=phone&fio=fio&host=topshoptovar.ru/elki1/&useragent=TW96aWxsYS81LjAgKFdpbmRvd3MgTlQgMTAuMDsgV2luNjQ7IHg2NCkgQXBwbGVXZWJLaXQvNTM3LjM2IChLSFRNTCwgbGlrZSBHZWNrbykgQ2hyb21lLzYyLjAuMzIwMi45NCBTYWZhcmkvNTM3LjM2&user_device=0&showcase_from=0&ua_device=Chrome&ua_os=Windows&is_backorder=1\'>');
+                $('body').append('<img style=\'display:none;\' src=\'http://m1-shop.ru/pixel?u=1&track=ref%3D8%3B+s%3Dsv%3B+w%3D%3B+t%3D%3B+p%3D%3B+m%3D&landing_id=&prokl_id=&ip=178.54.62.40&lnk=0&product=847&sale=phone&is_organic=1&tel=phone&fio=fio&host=topshoptovar.ru/elki1/&useragent=TW96aWxsYS81LjAgKFdpbmRvd3MgTlQgMTAuMDsgV2luNjQ7IHg2NCkgQXBwbGVXZWJLaXQvNTM3LjM2IChLSFRNTCwgbGlrZSBHZWNrbykgQ2hyb21lLzYyLjAuMzIwMi45NCBTYWZhcmkvNTM3LjM2&user_device=0&showcase_from=0&ua_device=Chrome&ua_os=Windows&is_backorder=1\'>');
+                }
+                setTimeout(pixel_func, 120000);
+                </script><script type="text/javascript">
+            var ref=8;
+            var get=1;
+            var v1=847;
+            var v2=0;
+            var v3=0;
+            var v4='178.54.62.40';
+            var v5='Chrome';
+            var v6='Windows';
+            var v7='ru';
+            var v8='';
+            var v9='';
+            var v10='';
+            var v11='';
+            var v12='';
+            </script>
+            <script src="./МагазинЕлок - розничная продажа новогодних елок_files/vtracker.js.Без названия" type="text/javascript"></script>
+</head>
+<body>
+<div class="box_for_info_tovar">
+	<div class="all_info_about_product">
+		<a href="http://topshoptovar.ru/elki1/#" onclick="$(&quot;.box_for_info_tovar&quot;).toggle(); return false;"><i class="close"><img src="./МагазинЕлок - розничная продажа новогодних елок_files/close.png"></i></a>
+		<div class="box_for_name">
+			<h1></h1>
+			<div class="new_price"></div>
+			<div class="old_price"></div>
+		</div>
+        <div class="box_for_characteristic">
+            <img src="./МагазинЕлок - розничная продажа новогодних елок_files/image_info.png" class="image">
+            <div class="technical_characteristics"></div>
+        </div>
+        <form id="form1" name="order" action="http://topshoptovar.ru/elki1/call.php" method="post" onsubmit="if(this.name.value==&#39;&#39;){alert(&#39;Введите Ваше имя!&#39;);return false}if(this.phone.value==&#39;&#39;){alert(&#39;Введите Ваш номер телефона!&#39;);return false}return true;">
+       
+			<h1>Заполните форму заказа</h1>				
+			<ul>
+				<li>
+					<p>Ваше имя:</p>
+					<input value="" name="name" type="text">
+				</li>
+				<li>
+					<p style="text-align: center;">Телефон:</p>
+					<input value="" name="phone" type="text">
+				</li>
+                <input type="hidden" name="price" class="price_field_s1" value="1990">
+                <input type="hidden" name="address" value="">
+			</ul>
+			<p class="left">Мы свяжемся с вами по телефону для уточнения заказа</p>
+			<button type="submit">Заказать</button>
+		</form> 
+    </div>
+</div>
+<div id="wrapper">
+	<header>
+		<div class="logo">
+			<a href="http://topshoptovar.ru/elki1/#"><img src="./МагазинЕлок - розничная продажа новогодних елок_files/logo_site.png"></a>
+			<p><a href="http://topshoptovar.ru/elki1/#">МагазинЕлок</a></p>
+			<p>Розничная продажа искусственных новогодних елок</p>
+			<p><span>Доставка по России</span></p>
+		</div>
+	</header><!-- #header-->
+</div><!-- #wrapper -->
+<div class="banner">
+	<p>Создать праздник близким легко!</p>
+	<p>Красивые новогодние елки по самым низким ценам</p>
+	<p>Шок-цена! Дарим всем гирлянду в подарок!</p>
+</div>
+<div id="wrapper">
+	<section>
+		<div class="shares">
+			<div class="bottom_text"></div>
+			<form id="mailf" class="form-top" action="http://topshoptovar.ru/elki1/call.php" method="post" onsubmit="if(this.name.value==&#39;&#39;){alert(&#39;Введите Ваше имя!&#39;);return false}if(this.phone.value==&#39;&#39;){alert(&#39;Введите Ваш номер телефона!&#39;);return false}return true;">
+     
+				<h1>Акция:</h1>
+				<h1>Закажи сейчас </h1>
+				<h1>и получи скидку до 50%!</h1>
+				<ul>
+					<li>
+						<p>Имя:</p>
+						<input value="" name="name" type="text">
+					</li>
+					<li>
+						<p>Телефон*:</p>
+						<input value="" name="phone" type="text">
+					</li>
+					<li>
+						<p>Размер Ёлки:</p>
+						<select name="address" id="address_id1" style="height: 33px; width: 371px;">
+                            <option value="e1n" selected="selected">120 см (1990 р.)</option>
+                            <option value="e2n">150 см (2590 р.)</option>
+                            <option value="e3n">180 см (3190 р.)</option>
+                            <option value="e4n">210 см (3790 р.)</option>
+						</select>
+                        
+                        <input type="hidden" name="price" id="price" class="price_field_s3" value="2290">
+					</li>
+          <p id="ajax"></p>
+				</ul>
+				<p class="timer_title">До конца акции осталось:</p> 
+				<div id="countdown2"><p><span>09</span><q>Часов</q></p><p><span>21</span><q>Минута</q></p><p><span>14</span><q>Секунда</q><span></span></p></div>
+				<button type="submit">Хочу елку!</button>
+</form>
+ 
+		</div>
+		<div class="brief_information">
+			<div class="v1">
+				<p>елка куплена </p>
+				<p> <span>341</span> есть куда положить подарки</p> 
+			</div>
+			<div class="v2">
+				<p>11 321 200</p>
+				<p>иголок доставлено</p>
+			</div>
+			<div class="v3"><p> <span> пострадало живых елок</span> <b>0</b></p></div>
+			<div class="v4"><p> <span>541</span> ребенок найдет подарок под ёлкой</p></div>
+			<div class="toysForTheChristmasTree_1">
+				<p>Не нужно</p>
+				<p>рубить на дрова</p>
+				<p>в конце года</p>				
+			</div>
+			<div class="toysForTheChristmasTree_2">
+				<p>Она</p>
+				<p>не осыпается</p>
+			</div>
+			<div class="toysForTheChristmasTree_3"><p>Компактно<br>складывается<br>в коробку</p></div>
+			<div class="toysForTheChristmasTree_4"><p>Легкая<br>сборка</p></div>
+			<div class="toysForTheChristmasTree_5"><p>Ну очень<br>пушистые</p></div>
+      
+		</div>
+		<div class="box_for_tovar">
+      <div class="hd" style="padding-right: 80px;"><h1>Наши Елки</h1></div>
+
+		
+
+		
+
+			<div class="container">
+				<h3><a class="buy-link" href="http://topshoptovar.ru/elki1/#">Елка Зимушка, 120 см</a></h3>
+				<img src="./МагазинЕлок - розничная продажа новогодних елок_files/elka_sn_120.jpg">
+				<div class="new_price"><span class="price_land_new">1990</span> <span class="price_land_curr">руб.</span></div>
+				<div class="old_price"><span class="price_land_old">3980</span> <span class="price_land_curr">руб.</span></div>
+	<div style="display:none;" class="commission">350</div>
+    <div style="display:none;" class="prefix">e1n</div>
+        <div class="hare" style="display: none;">
+        	<h3>Характеристики товара:</h3><br>
+              	<p><q class="height_christmas_tree"></q>Высота  елки 120 см</p>
+              	<p><q class="length"></q>Длина 50 см</p>
+              	<p><q class="width"></q>Ширина 13 см</p>
+              	<p><q class="height"></q>Высота 15 см</p>
+              	<p><q class="amount"></q>Объем <span>0,01 м<sup>3</sup></span></p>
+              	<p><q class="diameter_low_level"></q>Диаметр нижнего уровня 70 см</p>
+              	<p><q class="diameter_of_the_branch"></q>Диаметр ветки 12.1 см</p>
+              	<p><q class="quantity"></q>Количество веток 78</p>
+              	<p><q class="color"></q>Цвет снежинка</p>
+              	<p><q class="material"></q>Материал пластик</p>
+              	<p><q class="weight"></q>Веc (брутто) 2,0</p>
+              	<p><q class="availability"></q>Наличие шишек есть</p>
+              	<p><q class="material_stand"></q>Материал  подставки металл</p>
+        </div>      
+				<button class="info">Подробнее...</button>
+				<button class="buy">Купить</button>  
+			</div>
+
+			<div class="container">
+				<h3><a class="buy-link" href="http://topshoptovar.ru/elki1/#">Елка Зимушка, 150 см</a></h3>
+				<img src="./МагазинЕлок - розничная продажа новогодних елок_files/elka_sn_150.jpg">
+				<div class="new_price"><span class="price_land_new">2590</span> <span class="price_land_curr">руб.</span></div>
+				<div class="old_price"><span class="price_land_old">5180</span> <span class="price_land_curr">руб.</span></div>
+	<div style="display:none;" class="commission">500</div>
+    <div style="display:none;" class="prefix">e2n</div>
+       <div class="hare" style="display: none;">
+        	<h3>Характеристики товара:</h3><br>
+              	<p><q class="height_christmas_tree"></q>Высота  елки 150 см</p>
+              	<p><q class="length"></q>Длина 60 см</p>
+              	<p><q class="width"></q>Ширина 18 см</p>
+              	<p><q class="height"></q>Высота 16 см</p>
+              	<p><q class="amount"></q>Объем <span>0,02 м<sup>3</sup></span></p>
+              	<p><q class="diameter_low_level"></q>Диаметр нижнего уровня 94 см</p>
+              	<p><q class="diameter_of_the_branch"></q>Диаметр ветки 12.1 см</p>
+              	<p><q class="quantity"></q>Количество веток 138</p>
+              	<p><q class="color"></q>Цвет снежинка</p>
+              	<p><q class="material"></q>Материал пластик</p>
+              	<p><q class="weight"></q>Веc (брутто) 4,3</p>
+              	<p><q class="availability"></q>Наличие шишек есть</p>
+              	<p><q class="material_stand"></q>Материал  подставки металл</p>
+        </div>      
+				<button class="info">Подробнее...</button>
+				<button class="buy">Купить</button>  
+			</div>
+			<div class="container">
+				<h3><a class="buy-link" href="http://topshoptovar.ru/elki1/#">Елка Зимушка, 180 см</a></h3>
+				<img src="./МагазинЕлок - розничная продажа новогодних елок_files/elka_sn_180.jpg">
+				<div class="new_price"><span class="price_land_new">3190</span> <span class="price_land_curr">руб.</span></div>
+				<div class="old_price"><span class="price_land_old">6380</span> <span class="price_land_curr">руб.</span></div>
+	<div style="display:none;" class="commission">600</div>
+    <div style="display:none;" class="prefix">e3n</div>
+       <div class="hare" style="display: none;">
+        	<h3>Характеристики товара:</h3><br>
+              	<p><q class="height_christmas_tree"></q>Высота  елки 180 см</p>
+              	<p><q class="length"></q>Длина 70 см</p>
+              	<p><q class="width"></q>Ширина 19 см</p>
+              	<p><q class="height"></q>Высота 18 см</p>
+              	<p><q class="amount"></q>Объем <span>0,02 м<sup>3</sup></span></p>
+              	<p><q class="diameter_low_level"></q>Диаметр нижнего уровня 110 см</p>
+              	<p><q class="diameter_of_the_branch"></q>Диаметр ветки 12.1 см</p>
+              	<p><q class="quantity"></q>Количество веток 216</p>
+              	<p><q class="color"></q>Цвет снежинка</p>
+              	<p><q class="material"></q>Материал пластик</p>
+              	<p><q class="weight"></q>Веc (брутто) 5,4</p>
+              	<p><q class="availability"></q>Наличие шишек есть</p>
+              	<p><q class="material_stand"></q>Материал  подставки металл</p>
+        </div>      
+				<button class="info">Подробнее...</button>
+				<button class="buy">Купить</button>  
+			</div>
+			<div class="container">
+				<h3><a class="buy-link" href="http://topshoptovar.ru/elki1/#">Елка Зимушка, 210 см</a></h3>
+				<img src="./МагазинЕлок - розничная продажа новогодних елок_files/elka_sn_210.jpg">
+				<div class="new_price"><span class="price_land_new">3790</span> <span class="price_land_curr">руб.</span></div>
+				<div class="old_price"><span class="price_land_old">7580</span> <span class="price_land_curr">руб.</span></div>
+	<div style="display:none;" class="commission">720</div>
+    <div style="display:none;" class="prefix">e4n</div>
+       <div class="hare" style="display: none;">
+        	<h3>Характеристики товара:</h3><br>
+              	<p><q class="height_christmas_tree"></q>Высота  елки 210 см</p>
+              	<p><q class="length"></q>Длина 83 см</p>
+              	<p><q class="width"></q>Ширина 21 см</p>
+              	<p><q class="height"></q>Высота 21 см</p>
+              	<p><q class="amount"></q>Объем <span>0,04 м<sup>3</sup></span></p>
+              	<p><q class="diameter_low_level"></q>Диаметр нижнего уровня </p>
+              	<p><q class="diameter_of_the_branch"></q>Диаметр ветки 12.1 см</p>
+              	<p><q class="quantity"></q>Количество веток 284</p>
+              	<p><q class="color"></q>Цвет снежинка</p>
+              	<p><q class="material"></q>Материал пластик</p>
+              	<p><q class="weight"></q>Веc (брутто) 6,8</p>
+              	<p><q class="availability"></q>Наличие шишек есть</p>
+              	<p><q class="material_stand"></q>Материал  подставки металл</p>
+        </div>      
+				<button class="info">Подробнее...</button>
+				<button class="buy">Купить</button>  
+			</div>
+			<!--<div class="container">
+				<h3><a class="buy-link" href="#">Елка Зимушка, 250 см</a></h3>
+				<img src="./res/elka_sn_250.jpg">
+				<div class="new_price"><span class="price_land_new">8990</span> <span class="price_land_curr">руб.</span></div>
+				<div class="old_price"><span class="price_land_old">18200</span> <span class="price_land_curr">руб.</span></div>
+	<div style="display:none;" class="commission">850</div>
+    <div style="display:none;" class="prefix">e5n</div>
+        <div class="hare" style="display: none;">
+        	<h3>Характеристики товара:</h3><br>
+              	<p><q class="height_christmas_tree"></q>Высота  елки 250 см</p>
+              	<p><q class="length"></q>Длина 90 см</p>
+              	<p><q class="width"></q>Ширина 23 см</p>
+              	<p><q class="height"></q>Высота 25 см</p>
+              	<p><q class="amount"></q>Объем <span>0,05 м<sup>3</sup></span></p>
+              	<p><q class="diameter_low_level"></q>Диаметр нижнего уровня </p>
+              	<p><q class="diameter_of_the_branch"></q>Диаметр ветки 12.1 см</p>
+              	<p><q class="quantity"></q>Количество веток 362</p>
+              	<p><q class="color"></q>Цвет снежинка</p>
+              	<p><q class="material"></q>Материал пластик</p>
+              	<p><q class="weight"></q>Веc (брутто) 8,8</p>
+              	<p><q class="availability"></q>Наличие шишек есть</p>
+              	<p><q class="material_stand"></q>Материал  подставки металл</p>
+        </div>      
+				<button class="info">Подробнее...</button>
+				<button class="buy">Купить</button>  
+			</div>
+			<div class="container">
+				<h3><a class="buy-link" href="#">Елка Зимушка, 300 см</a></h3>
+				<img src="./res/elka_sn_300.jpg">
+				<div class="new_price"><span class="price_land_new">11990</span> <span class="price_land_curr">руб.</span></div>
+				<div class="old_price"><span class="price_land_old">24200</span> <span class="price_land_curr">руб.</span></div>
+	<div style="display:none;" class="commission">1500</div>
+    <div style="display:none;" class="prefix">e6n</div>
+        <div class="hare" style="display: none;">
+        	<h3>Характеристики товара:</h3><br>
+              	<p><q class="height_christmas_tree"></q>Высота  елки 300 см</p>
+              	<p><q class="length"></q>Длина </p>
+              	<p><q class="width"></q>Ширина </p>
+              	<p><q class="height"></q>Высота </p>
+              	<p><q class="amount"></q>Объем <span><sup></sup></span></p>
+              	<p><q class="diameter_low_level"></q>Диаметр нижнего уровня </p>
+              	<p><q class="diameter_of_the_branch"></q>Диаметр ветки 12.1 см</p>
+              	<p><q class="quantity"></q>Количество веток 609</p>
+              	<p><q class="color"></q>Цвет снежинка</p>
+              	<p><q class="material"></q>Материал пластик</p>
+              	<p><q class="weight"></q>Веc (брутто) </p>
+              	<p><q class="availability"></q>Наличие шишек есть</p>
+              	<p><q class="material_stand"></q>Материал  подставки металл</p>
+        </div>      
+				<button class="info">Подробнее...</button>
+				<button class="buy">Купить</button>  
+			</div>	-->		
+		</div>
+		<div class="structure">
+			<div class="text_box_1">Пушистые <br>ветки</div>
+			<div class="text_box_2">Напыление,<br>имитирующее снег</div>
+			<div class="text_box_3">Прочная <br>подставка</div>
+			<div class="text_box_4">Настоящие <br>шишки</div>
+			<div class="text_box_5">Легкая <br>сборка</div>
+			<div class="text_box_6">Не осыпается <br>со временем</div>
+			<div class="text_box_7">Закажите действительно качественные ели сейчас!</div>
+		</div>
+		<form name="to_order_now" action="http://topshoptovar.ru/elki1/call.php" method="post" class="gold" id="form2" onsubmit="if(this.name.value==&#39;&#39;){alert(&#39;Введите Ваше имя!&#39;);return false}if(this.phone.value==&#39;&#39;){alert(&#39;Введите Ваш номер телефона!&#39;);return false}return true;">
+    
+			<h1>Акция: Закажи сейчас и получи скидку до 50%!</h1>				
+			<ul>
+				<li>
+					<p>Имя:</p>
+					<input value="" name="name" type="text">
+				</li>
+				<li>
+					<p>Телефон*:</p>
+					<input value="" name="phone" type="text">
+				</li>
+				<li>
+						<p>Размер Ёлки:</p>
+						<select name="address" style="height: 30px;">
+                            <option value="e1n" selected="selected">120 см (1990 р.)</option>
+                            <option value="e2n">150 см (2590 р.)</option>
+                            <option value="e3n">180 см (3190 р.)</option>
+                            <option value="e4n">210 см (3790 р.)</option>
+						</select>
+                        
+                        <input type="hidden" name="price" id="price" class="price_field_s3" value="2290">
+				</li>
+			</ul>
+				<p class="timer_title" style="padding-top: 120px;">До конца акции осталось:</p> 
+				<div id="countdown3"><p><span>09</span><q>Часов</q></p><p><span>21</span><q>Минута</q></p><p><span>14</span><q>Секунда</q><span></span></p></div>
+      
+			<button type="submit">Хочу елку!</button>
+</form>
+
+		<div class="gallery_block">
+		<div class="" style="font-size: 1px;">1</div>
+			<div class="gallery_block1"><h1 style="clear: both;">“Живые” фото</h1></div>
+			<div class="images_gallery_box">
+				<div class="images_gallery"><img src="./МагазинЕлок - розничная продажа новогодних елок_files/el1_m.jpg" class=""></div>
+				<div class="images_gallery"><img src="./МагазинЕлок - розничная продажа новогодних елок_files/el2_m.jpg" class=""></div>
+				<div class="images_gallery"><img src="./МагазинЕлок - розничная продажа новогодних елок_files/el3_m.jpg" class=""></div>
+				<div class="images_gallery"><img src="./МагазинЕлок - розничная продажа новогодних елок_files/el4_m.jpg" class=""></div>
+				<div class="images_gallery"><img src="./МагазинЕлок - розничная продажа новогодних елок_files/el5_m.jpg" class=""></div>
+			</div>
+		</div>
+		
+		<div class="zvez">
+    <div class="main">
+        <span class="h3">Отзывы</span>
+        <div id="slideshow">
+            	<ul class="slides">
+          		    <li class="" style="display: none;">
+                        <canvas width="220" height="222" style="display: none;"></canvas><img src="./МагазинЕлок - розничная продажа новогодних елок_files/3.png">
+                        <samp class="otn">Николай<br>30 лет<br>Москва<br></samp>
+                        <p class="otztext">Заказали 2 ёлки, привезли на следующий день после заказа, всем очень довольны. Ёлки очень пушистые как на картинке. Дети и жена очень довольны! Спасибо компании за хорошую работу!</p>
+                   </li>
+          		    <li class="" style="display: none;">
+                        <canvas width="220" height="222" style="display: none;"></canvas><img src="./МагазинЕлок - розничная продажа новогодних елок_files/4.png">
+                        <samp class="otn">Валерий<br>26 лет<br>Санкт-Петербург<br></samp>
+                        <p class="otztext">Хотелось бы выразить благодарность за превосходную ёлку, высокий уровень обслуживания и своевременную доставку! Вся семья в восторге))) А главное, теперь много лет не будет болеть голова о приобретении главного элемента к Новому году!)))</p>
+                   </li>
+                   
+                       <li class="" style="display: none;">
+                        <canvas width="220" height="222" style="display: none;"></canvas><img src="./МагазинЕлок - розничная продажа новогодних елок_files/1.png">
+                        <samp class="otn">Наталья<br>35 лет<br>Вологда<br></samp>
+                        <p class="otztext">Хотим поделиться впечатлением)Нам доставили елочку,прекрасная качественная красавица.Сама по себе очень нарядно смотрится и требует минимум украшений,хотя это дело вкуса.Заказ делали по телефону,доброжелательный оператор очень быстро оформил заказ и доставка не заставила себя ждать.Спасибо за елочку и Новогоднее настроение))Удачи всем!)</p>
+                   </li>
+                   
+                   
+                    <li class="slideActive" style="display: list-item;">
+                        <canvas width="220" height="222" style="display: inline; opacity: 0.998751;"></canvas><img src="./МагазинЕлок - розничная продажа новогодних елок_files/5.png">
+                        <samp class="otn">Михаил<br>50 лет<br>Москва<br></samp>
+                        <p class="otztext">Огромное спасибо! Елка чудесная!!!! Так понравилась,что в итоге купил 2))вторую в подарок маме) так же хочу выразить благодарность обслуживающему персоналу за оперативную работу и доброжелательный настрой!!! Всех поздравляю с наступающим новым годом и желаю такую елку каждому дому!) потому что это удобно, красиво и экономно!!!</p>
+                   </li>
+                   
+                   
+                    <li class="" style="display: none;">
+                        <canvas width="220" height="222" style="display: none;"></canvas><img src="./МагазинЕлок - розничная продажа новогодних елок_files/2.png">
+                        <samp class="otn">Надежда<br>28 лет<br>Череповец<br></samp>
+                        <p class="otztext">Большое спасибо за шикарную елку и остальные прикольные штучки! Все как и обещали, приятно удивили :) Особенно порадовало, что елка не доставила неудобств при сборке - вот уж действительно круто, так все легко и просто! Спасибо за то что Вы делаете, успехов и проЦвет ания!</p>
+                   </li>
+                </ul>
+    <span class="arrow previous"></span>
+    <span class="arrow next"></span>
+        </div>
+    </div>
+</div>
+
+		<div class="why_all_chice_us">
+				<h1>Почему 371 клиент выбрал нашу компанию</h1>
+				<table cellpadding="0" cellspacing="0">
+					<tbody><tr>
+						<td><img src="./МагазинЕлок - розничная продажа новогодних елок_files/price.png"></td>
+						<td>
+							<p>Лучшие цены</p>							
+						</td>
+					</tr>
+					<tr>
+						<td><img src="./МагазинЕлок - розничная продажа новогодних елок_files/delicery_elki.png"></td>
+						<td>
+							<p>Доставка в регионы в течении 5 дней</p>							
+						</td>
+					</tr>
+					<tr>
+						<td><img src="./МагазинЕлок - розничная продажа новогодних елок_files/give.png"></td>
+						<td>
+							<p>Дарим в подарок гирлянду</p>							
+						</td>
+					</tr>
+					<tr>
+						<td><img src="./МагазинЕлок - розничная продажа новогодних елок_files/world.png"></td>
+						<td>
+							<p>Доставка по России</p>							
+						</td>
+					</tr>
+					<tr>
+						<td><img src="./МагазинЕлок - розничная продажа новогодних елок_files/nali4ie.png"></td>
+						<td>
+							<p>Наличие на складе</p>							
+						</td>
+					</tr>
+					<tr>
+						<td><img src="./МагазинЕлок - розничная продажа новогодних елок_files/obmen.png"></td>
+						<td>
+							<p>Обмен и возврат гарантирован</p>							
+						</td>
+					</tr>
+					<tr>
+						<td><img src="./МагазинЕлок - розничная продажа новогодних елок_files/asortiment.png"></td>
+						<td>
+							<p>Большой ассортимент</p>							
+						</td>
+					</tr>
+					<tr>
+						<td><img src="./МагазинЕлок - розничная продажа новогодних елок_files/save_nature.png"></td>
+						<td>
+							<p>Мы не вырубаем живые ели. Мы предлагаем искусственные елки, сохраняя природу.</p>						
+						</td>
+					</tr>					
+				</tbody></table>
+		</div>
+	
+			<div class="how_we_work">
+				<h1>Как мы работаем:</h1>
+				<div class="container">
+					<img src="./МагазинЕлок - розничная продажа новогодних елок_files/phone.png">
+					<p>Заявка на сайте</p>
+				</div>
+				<div class="container_for_arrow"></div>
+				<div class="container">
+					<img src="./МагазинЕлок - розничная продажа новогодних елок_files/note.png">
+					<p>Согласование заказа</p>
+				</div>
+				<div class="container_for_arrow"></div>
+				<div class="container">
+					<img src="./МагазинЕлок - розничная продажа новогодних елок_files/delivery.png">
+					<p>Доставка</p>
+				</div>
+				<div class="container_for_arrow"></div>
+				<div class="container">
+					<img src="./МагазинЕлок - розничная продажа новогодних елок_files/happy.png">
+					<p>Радость клиента</p>
+				</div>
+			</div>
+		</section></div>
+		<form name="to_order_now" action="http://topshoptovar.ru/elki1/call.php" method="post" class="red" id="form4" onsubmit="if(this.name.value==&#39;&#39;){alert(&#39;Введите Ваше имя!&#39;);return false}if(this.phone.value==&#39;&#39;){alert(&#39;Введите Ваш номер телефона!&#39;);return false}return true;">
+    
+			<h1>Закажи сегодня и получи подарок!</h1>				
+			<ul>
+				<li>
+					<p>Имя:</p>
+					<input value="" name="name" type="text">
+				</li>
+				<li>
+					<p>Телефон*:</p>
+					<input value="" name="phone" type="text">
+				</li>
+							<li>
+						<p>Размер Ёлки:</p>
+						<select name="address" style="height: 30px;">
+                            <option value="e1n" selected="selected">120 см (1990 р.)</option>
+                            <option value="e2n">150 см (2590 р.)</option>
+                            <option value="e3n">180 см (3190 р.)</option>
+                            <option value="e4n">210 см (3790 р.)</option>
+						</select>
+                        
+                        <input type="hidden" name="price" id="price" class="price_field_s3" value="2290">
+				</li>
+			</ul>
+				<p class="timer_title" style="padding-top: 120px;">До конца акции осталось:</p> 
+				<div id="countdown4"><p><span>09</span><q>Часов</q></p><p><span>21</span><q>Минута</q></p><p><span>14</span><q>Секунда</q><span></span></p></div>
+			<button type="submit">Хочу елку!</button>
+
+</form>
+    <footer>
+    <hr>
+   <div class="logo">
+		<img src="./МагазинЕлок - розничная продажа новогодних елок_files/cop1-b-800.png"><br>
+
+<p style="text-align: center; font-size: 14px;">
+<a style="color:inherit;" target="_blank" href="http://topshoptovar.ru/elki1/?page=politics">Политика конфиденциальности</a>
+
+
+<a style="color:inherit;" target="_blank" href="http://topshoptovar.ru/elki1/?page=agreement">Пользовательское соглашение</a>
+</p>
+
+
+<div style="display:none;">
+<div id="polit" class="white-popup">
+    <div class="modal-block">
+        <div class="icon-close"></div>
+        <div class="title">ПОЛИТИКА КОНФИДЕНЦИАЛЬНОСТИ</div>
+        <div class="content">
+            <div class="padding">
+                <p>Наш интернет-магазин уважительно относится к правам клиента. Соблюдается строгая конфиденциальность
+                    при оформлении заказа. Сведения надёжно сохраняются и защищены от передачи. </p>
+
+                <p>Согласием на обработку данных клиента исключительно с целью оказания услуг является размещение заказа
+                    на сайте. </p>
+
+                <p>К персональным данным относится личная информация о клиенте: домашний адрес; имя, фамилия, отчество;
+                    сведения о рождении; имущественное, семейное положение; личные контакты (телефон, электронная почта)
+                    и прочие сведения, которые
+
+                    перечислены в Законе РФ № 152-ФЗ «О персональных данных» от 27 июля 2006 г. </p>
+
+                <p>Клиент вправе отказаться от обработки персональных данных. Нами в данном случае гарантируется
+                    удаление с сайта всех персональных данных в трёхдневный срок в рабочее время. Подобный отказ клиент
+                    может оформить простым электронным письмом на адрес, указанный на странице нашего сайта. </p>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+		</div>
+		
+   </footer>
+	<!-- #middle-->	
+<!-- #wrapper -->	
+     <script type="text/javascript">
+
+$('button.info, button.buy, .buy-link').on ('click',function () {
+	var stitle = $(this).closest('.container').find(".buy-link").text();
+	var html = $(this).closest('.container').find(".hare").html();
+	var img = $(this).closest('.container').find("img").attr('src'); 
+	var old_price = $(this).closest('.container').find(".old_price").text();
+	var new_price = $(this).closest('.container').find(".new_price").text();
+	
+	$(".box_for_info_tovar .technical_characteristics").html(html);   
+	$(".box_for_info_tovar .new_price").text(new_price);
+	$(".box_for_info_tovar .old_price").text(old_price);
+	$(".box_for_info_tovar .box_for_characteristic img").attr('src',img);
+	$(".box_for_info_tovar .box_for_name h1").text(stitle);
+
+	var s1 = $(this).closest('.container').find('.price_land_new').text(),
+		s3 = parseInt(s1) + 300,
+        prefix = $(this).closest('.container').find('.prefix').text(),
+		commission = $(this).closest('.container').find('.commission').text()
+
+	$('.box_for_info_tovar input[name=commission]').val(commission);
+	$('.box_for_info_tovar input[name=address]').val(prefix);
+	$('.box_for_info_tovar .price_field_s1').val(s1);
+	$('.box_for_info_tovar .price_field_s3').val(s3);
+	$(".box_for_info_tovar").toggle();
+	return false;
+});
+
+
+</script>
+<script src="./МагазинЕлок - розничная продажа новогодних елок_files/script2.js.Без названия"></script>
+<script src="./МагазинЕлок - розничная продажа новогодних елок_files/autoadvance.js.Без названия"></script>
+
+<script type="text/javascript">
+    jQuery().ready(function() {
+        $('form').bind("submit", function(event){
+            var datarow = $(this).serializeArray();
+            /*
+            var addressIsset = false;
+            $(datarow).each(function(item, itemData){
+                if (itemData.name == 'address')
+                {
+                    addressIsset = true;
+                }
+                if (itemData.name == 'name' || itemData.name == 'phone')
+                {
+                    delete datarow[ item ];
+                }
+            });
+
+            if (addressIsset == false)
+            {
+                $(this).append("<input type='hidden' name='address' />");
+            }
+            $("input[name='address']").val( $.JSON.encode(datarow) );
+            */
+        });
+
+        $('a[href*=#]:not([href=#])').click(function() {
+            if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'') && location.hostname == this.hostname) {
+                var target = $(this.hash);
+                target = target.length ? target : $('[name=' + this.hash.slice(1) +']');
+                if (target.length) {
+                    $('html,body').animate({
+                        scrollTop: target.offset().top
+                    }, 1000);
+                    return false;
+                }
+            }
+        });
+    });
+</script>
+
+
+
+
+</body><div id="overlay-popup-m1"></div><div id="m1-form" class="m1modal"><a class="close-m1"></a><div><div class="popup-m1-title">Вам понравилось это предложение?</div><div class="popup-m1-cont"><div class="popup-m1-text1">Мы расскажем Вам все об этом товаре, предложим наилучшие условия и ознакомим с подходящими акционными предложениями!</div><form method="POST" action="http://topshoptovar.ru/elki1/call.php" class="popup-m1-form"><input type="text" name="name" placeholder="Введите ваше имя" required=""><input type="text" name="phone" placeholder="Введите телефон" required=""><button>Перезвоните мне</button><input type="hidden" name="is_popup" value="1"><input type="hidden" name="from_recall_button" value="0"></form><div class="popup-m1-text2">Оператор перезвонит Вам через 5-10 минут</div></div></div></div></html>

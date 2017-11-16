@@ -1,0 +1,117 @@
+﻿$(document).ready(function () {
+
+/* циферки  */
+
+function countdown( elementName, minutes, seconds )
+{
+    var element, endTime, hours, mins, msLeft, time;
+
+    function twoDigits( n )
+    {
+        return (n <= 9 ? "0" + n : n);
+    }
+    
+function TimeToString (value, str1, str2, str5) { 
+   if (!value) return str5
+   mod = value % 10
+   if ((value%100)>=10 && (value%100)<=19) return str5
+   if (mod == 1) return str1
+   if (mod >= 2 && mod <= 4) return str2
+   return str5
+}  
+
+
+    
+    
+    function updateTimer()
+    {
+        msLeft = endTime - (+new Date);
+        if ( msLeft < 1000 ) {
+            element.innerHTML = "<p><span>00</span><q>Часов</q></p><p><span>00</span><q>Минут</q></p><p><span>00</span><q>Секунд</q></p>";
+        } else {
+            time = new Date( msLeft );
+            hours = time.getUTCHours();
+            mins = time.getUTCMinutes();
+            tHour   = TimeToString (hours, 'Час', 'Часа', 'Часов');
+            tMinute = TimeToString (mins, 'Минута', 'Минуты', 'Минут');
+			tSeconds = TimeToString (mins, 'Секунда', 'Секунды', 'Секунд');
+            element.innerHTML = '<p><span>' +  twoDigits( hours )  + '</span><q>'+ tHour +'</q></p><p><span>' + twoDigits( mins ) + '</span><q>'+ tMinute +'</q></p><p><span>' + twoDigits( time.getUTCSeconds())+ '</span><q>' + tSeconds +'</q><span>' ;
+            setTimeout( updateTimer, time.getUTCMilliseconds() + 500 );
+        }
+    }
+
+    element = document.getElementById( elementName );
+    endTime = (+new Date) + 1000 * (60*minutes + seconds) + 500;
+    updateTimer();
+}
+
+time=new Date();
+
+time_sec=time.getSeconds();// получаем секунды
+time_min=time.getMinutes();// получаем минуты
+time_hours=time.getHours();// получаем часы
+
+
+//тута задаем время часов и минут
+var hour = (24-time_hours)*60-time_min; 
+
+countdown( "countdown2", hour, 0 );
+countdown( "countdown3", hour, 0 );
+countdown( "countdown4", hour, 0 );
+
+/* конец циферков  */
+
+/* отправка формы  */
+
+
+
+
+/* конец отправка формы  */
+
+});
+
+
+/*
+ * Name: Modal Window v1.0
+ * Site: http://get-element.3dn.ru/
+ * Author: Turkov Dmitriy | Get-Element
+ * Date: January 22:53 24.01.2012
+ */
+
+$(document).ready(function() { 
+$('a[name=modal]').click(function(e) {
+ var top = $(this).offset().top
+ var id = $(this).attr('href');
+ var maskHeight = $(document).height();
+ var maskWidth = $(window).width();
+ $('#mask').css({
+ 'width':maskWidth,
+ 'height':maskHeight
+ });
+ $('#mask').css('opacity', 0).show();
+ $('#mask').fadeTo(1000,0.6); //1000 - плавность появления маски, 0.6 - степень прозрачности маски
+ var winH = $(window).height();
+ var winW = $(window).width();
+ $(id).css('top', winH/2-$(id).height()/2);
+ $(id).css('left', winW/2-$(id).width()/2);
+ $(id).fadeIn(1000);
+ });
+
+ $('.window .close').click(function (e) {
+ e.preventDefault();
+ $('#mask').fadeOut(1000); //1000 - плавность закрытия маски
+  $('.formError').hide();
+ $('.window').fadeOut(500); //500 - плавность закрытия окна
+ });
+ 
+$(window).scroll(function() {
+ $('.formError').hide();
+});
+
+ $('#mask').click(function () {
+ $(this).fadeOut(1000);
+ $('.formError').hide();
+ $('.window').fadeOut(500);
+ });
+ 
+ });

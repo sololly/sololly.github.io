@@ -168,12 +168,12 @@
 						});
 				}
 		$('.index-link').on("click", function(e){
-			
-			if($('#page').is('#content')) {
-				event.preventDefault();
+			//event.preventDefault();
+			if(($("#content").length>0)) {
+				return false;
 			}
 				else {
-					show_main();
+					return false;show_main();
 				}
 				
 			});

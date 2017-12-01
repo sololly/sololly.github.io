@@ -160,9 +160,10 @@
 					 $.ajax({
 							 url: "index.html",
 								cache: false,
-								success: function(html){
-			$('#content').remove();
-			$('#page').html(html);
+								success: function(data){
+			$('#product-content').remove();
+			var part = $(data).filter('#content');
+			$('pages').append(part);
 			history.pushState({param: 'Value'}, '', '/index.html');
 								}
 						});

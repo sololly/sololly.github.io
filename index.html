@@ -146,7 +146,7 @@
                 cache: false,
                 success: function(data){
 									$('#content').hide();
-									var part = $(data).filter('#content');
+									var part = $(data).filter('#product-content');
 									$('#ajax_pages').append(part);
 									history.pushState({param: 'Value'}, '', '/category72.html');
                 }
@@ -154,7 +154,7 @@
         }
 			$('.promo-link').on("click", function(e){
 					event.preventDefault();
-				  	show();
+				  show();
 				});
 		});
 	</script>

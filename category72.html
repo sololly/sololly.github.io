@@ -6,9 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<link rel="stylesheet" href="bootstrap.min.css">
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-	<style>
-
-	</style>
 </head>
 <body>
 	<header>
@@ -35,7 +32,7 @@
       </nav>
     </header>
 	<main>
-		<section id="content">
+		<section id="product-content">
 			<div class="container">
 				<div class="row">
 					<div class="col-xs-12">
@@ -72,26 +69,5 @@
 			</div>
 		</section>
 	</main>
-	<!--<script>
-		$(document).ready(function() {
-			function show()
-        {
-           $.ajax({
-               url: "index.html",
-                cache: false,
-                success: function(data){
-									$('#content').hide();
-									var part = $(data).filter('#content');
-									$('#ajax_pages').append(part);
-									history.pushState({param: 'Value'}, '', '/index.html');
-				        }
-            });
-        }
-			$('.navbar-brand').on("click", function(e){
-					event.preventDefault();
-				  	show();
-				});
-		});
-	</script>-->
 </body>
 </html>

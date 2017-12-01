@@ -163,7 +163,8 @@
 								success: function(data){
 			$('#product-content').remove();
 			var part = $(data).filter('#content');
-			$('pages').append(part);
+			part.appendTo($('pages'));
+			//$('pages').append(part);
 			history.pushState({param: 'Value'}, '', '/index.html');
 								}
 						});

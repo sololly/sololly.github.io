@@ -122,7 +122,7 @@
       </nav>
     </header>
 	<main>
-		<div id="ajax_pages">
+		<div id="page">
 			<section id="content">
 				<div class="container">
 					<div class="row">
@@ -146,8 +146,8 @@
                 cache: false,
                 success: function(data){
 									$('#content').remove();
-									var part = $(data).filter('#product-content');
-									$('#ajax_pages').append(part);
+									var part = $(data).filter("#product-content");
+									$('#page').append(part);
 									history.pushState({param: 'Value'}, '', '/category72.html');
                 }
             });

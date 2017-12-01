@@ -145,11 +145,9 @@
                url: "category72.html",
                 cache: false,
                 success: function(html){
-									$('#content').remove();
-									//var part = $(data).filter("#product-content");
-									//$('#page').append(part);
-									$('#page').html(html);
-									history.pushState({param: 'Value'}, '', '/category72.html');
+			$('#content').remove();
+			$('#page').html(html);
+			history.pushState({param: 'Value'}, '', '/category72.html');
                 }
             });
         }

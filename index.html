@@ -145,7 +145,7 @@
                url: "category72.html",
                 cache: false,
                 success: function(data){
-									$('#content').hide();
+									$('#content').remove();
 									var part = $(data).filter('#product-content');
 									$('#ajax_pages').append(part);
 									history.pushState({param: 'Value'}, '', '/category72.html');

@@ -169,7 +169,13 @@
 				}
 		$('.index-link').on("click", function(e){
 			event.preventDefault();
-				show_main();
+			if($('#page').is('#content')) {
+				event.preventDefault();
+			}
+				else {
+					show_main();
+				}
+				
 			});
 		});
 	</script>

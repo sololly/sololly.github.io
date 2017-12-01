@@ -112,7 +112,7 @@
           </div>
           <div class="collapse navbar-collapse" id="menu">
             <ul class="nav navbar-nav navbar-right">
-              <li><a href="#">Link 1</a></li>
+              <li><a href="index.html" class="index-link">Главная</a></li>
 							<li><a href="#">Link 2</a></li>
 							<li><a href="#">Link 3</a></li>
 							<li><a href="#">Link 4</a></li>
@@ -152,9 +152,25 @@
             });
         }
 			$('.promo-link').on("click", function(e){
-					event.preventDefault();
+				event.preventDefault();
 				  show();
 				});
+			function show_main()
+				{
+					 $.ajax({
+							 url: "index.html",
+								cache: false,
+								success: function(html){
+			$('#content').remove();
+			$('#page').html(html);
+			history.pushState({param: 'Value'}, '', '/index.html');
+								}
+						});
+				}
+		$('.index-link').on("click", function(e){
+			event.preventDefault();
+				show_main();
+			});
 		});
 	</script>
 </body>

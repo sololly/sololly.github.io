@@ -82,11 +82,11 @@
                url: "index.html",
                 cache: false,
                 success: function(data){
-					$('#content').remove();
-					var part = $(data).filter('#content');
-					$('#ajax_pages').append(part);
-					history.pushState({param: 'Value'}, '', '/index.html');
-                }
+									$('#content').hide();
+									var part = $(data).filter('#content');
+									$('#ajax_pages').append(part);
+									history.pushState({param: 'Value'}, '', '/index.html');
+				        }
             });
         }
 			$('.navbar-brand').on("click", function(e){

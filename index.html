@@ -145,7 +145,7 @@
                url: "category72.html",
                 cache: false,
                 success: function(html){
-			$('#content').remove();
+			$('#content').hide();
 			$('#page').html(html);
 			history.pushState({param: 'Value'}, '', '/category72.html');
                 }
@@ -162,9 +162,7 @@
 								cache: false,
 								success: function(data){
 			$('#product-content').remove();
-			var part = $(data).filter('#content');
-			part.appendTo($('pages'));
-			//$('pages').append(part);
+			$('#content').show();
 			history.pushState({param: 'Value'}, '', '/index.html');
 								}
 						});
